@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore.Migrations;
 using System;
 
-namespace CardTrader.Data.Migrations
+namespace CardTrader.Infrastructure.Migrations
 {
     public partial class CreateIdentitySchema : Migration
     {
