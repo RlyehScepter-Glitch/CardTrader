@@ -33,5 +33,7 @@ namespace CardTrader.Infrastructure.Data.Models
         public string WantedListId { get; set; }
 
         public List<Message> Messages { get; set; }
+
+        //Friendlist maybe?
     }
 }
