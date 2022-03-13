@@ -19,20 +19,20 @@ namespace CardTrader.Infrastructure.Data.Models
         [Required]
         [StringLength(64)]
         public string Password { get; set; }
-        
+
         [Required]
         [ForeignKey(nameof(BinderId))]
-        public CardCollection TradeBinder { get; set; }
+        public CardCollection TradeBinder = new CardCollection();
         
         public string BinderId { get; set; }
 
         [Required]
         [ForeignKey(nameof(WantedListId))]
-        public CardCollection WantedList { get; set; }
+        public CardCollection WantedList = new CardCollection();
         
         public string WantedListId { get; set; }
 
-        public List<Message> Messages { get; set; }
+        //public List<Message> Messages { get; set; }
 
         //Friendlist maybe?
     }
