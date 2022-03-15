@@ -2,7 +2,7 @@
 
 namespace CardTrader.Controllers
 {
-    public class AuthorizationController1 : Controller
+    public class AuthorizationController : Controller
     {
         public IActionResult Index()
         {
