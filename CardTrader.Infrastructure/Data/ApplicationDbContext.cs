@@ -11,12 +11,40 @@ namespace CardTrader.Infrastructure.Data
         {
         }
 
-        public DbSet<User> Users { get; set; }
         public DbSet<Card> Cards { get; set; }
-        public DbSet<Bulk> BulkCollections { get; set; }
+        public DbSet<Collection> Collections { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<CardCollection>(x =>
+            {
+                x.HasKey(x => new { x.CardId, x.CollectionId });
+            });
+
+            modelBuilder.Entity<CardCollection>()
+                .HasOne(cc => cc.Card)
+                .WithMany(c => c.Collections)
+                .HasForeignKey(cc => cc.CardId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<CardCollection>()
+                .HasOne(cc => cc.Collection)
+                .WithMany(c => c.Cards)
+                .HasForeignKey(cc => cc.CollectionId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<User>()
+                .HasOne(u => u.TradeBinder)
+                .WithOne(b => b.User)
+                .HasForeignKey<User>(u => u.BinderId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<User>()
+                .HasOne(u => u.WantedList)
+                .WithOne(w => w.User)
+                .HasForeignKey<User>(u => u.WantedListId)
+                .OnDelete(DeleteBehavior.Restrict);
+
             base.OnModelCreating(modelBuilder);
         }
     }
