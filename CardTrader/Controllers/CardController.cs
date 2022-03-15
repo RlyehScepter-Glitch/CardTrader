@@ -4,7 +4,12 @@ namespace CardTrader.Controllers
 {
     public class CardController : Controller
     {
-        public IActionResult Index()
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        public IActionResult Info()
         {
             return View();
         }
