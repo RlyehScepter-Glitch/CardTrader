@@ -23,5 +23,7 @@ namespace CardTrader.Infrastructure.Data.Models
         
         [Required]
         public string ImageUrl { get; set; }
+
+        public ICollection<CardCollection> Collections { get; set; }
     }
 }

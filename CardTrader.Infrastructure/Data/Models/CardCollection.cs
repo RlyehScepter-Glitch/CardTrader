@@ -1,21 +1,15 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CardTrader.Infrastructure.Data.Models
 {
     public class CardCollection
     {
-        [Key]
-        [StringLength(36)]
-        public string Id { get; set; } = Guid.NewGuid().ToString();
-        
-        public List<Card> Cards { get; set; }
-        
-        public List<Bulk> BulkCards { get; set; }
+        [ForeignKey(nameof(CardId))]
+        public Card Card { get; set; }
+        public int CardId { get; set; }
 
-        [Required]
-        [ForeignKey(nameof(UserId))]
-        public User User { get; set; }
-        public string UserId { get; set; }
+        [ForeignKey(nameof(CollectionId))]
+        public Collection Collection { get; set; }
+        public string CollectionId { get; set; }
     }
 }
