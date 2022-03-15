@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CardTrader.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220314192111_InitialMigration")]
+    [Migration("20220315191623_InitialMigration")]
     partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,17 +24,6 @@ namespace CardTrader.Infrastructure.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
-            modelBuilder.Entity("CardTrader.Infrastructure.Data.Models.Bulk", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasMaxLength(36)
-                        .HasColumnType("nvarchar(36)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("BulkCollections");
-                });
-
             modelBuilder.Entity("CardTrader.Infrastructure.Data.Models.Card", b =>
                 {
                     b.Property<int>("Id")
@@ -42,9 +31,6 @@ namespace CardTrader.Infrastructure.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<string>("BulkId")
-                        .HasColumnType("nvarchar(36)");
 
                     b.Property<string>("Expansion")
                         .IsRequired()
@@ -73,42 +59,43 @@ namespace CardTrader.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("BulkId");
-
                     b.ToTable("Cards");
                 });
 
-            modelBuilder.Entity("CardTrader.Infrastructure.Data.Models.User", b =>
+            modelBuilder.Entity("CardTrader.Infrastructure.Data.Models.CardCollection", b =>
+                {
+                    b.Property<int>("CardId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("CollectionId")
+                        .HasColumnType("nvarchar(36)");
+
+                    b.HasKey("CardId", "CollectionId");
+
+                    b.HasIndex("CollectionId");
+
+                    b.ToTable("CardCollection");
+                });
+
+            modelBuilder.Entity("CardTrader.Infrastructure.Data.Models.Collection", b =>
                 {
                     b.Property<string>("Id")
                         .HasMaxLength(36)
                         .HasColumnType("nvarchar(36)");
 
-                    b.Property<string>("BinderId")
+                    b.Property<string>("Discriminator")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Password")
-                        .IsRequired()
-                        .HasMaxLength(64)
-                        .HasColumnType("nvarchar(64)");
-
-                    b.Property<string>("Username")
-                        .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
-
-                    b.Property<string>("WantedListId")
+                    b.Property<string>("UserId")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Users");
+                    b.ToTable("Collections");
+
+                    b.HasDiscriminator<string>("Discriminator").HasValue("Collection");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -175,6 +162,10 @@ namespace CardTrader.Infrastructure.Migrations
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Discriminator")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Email")
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
@@ -226,6 +217,8 @@ namespace CardTrader.Infrastructure.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
+
+                    b.HasDiscriminator<string>("Discriminator").HasValue("IdentityUser");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
@@ -313,11 +306,60 @@ namespace CardTrader.Infrastructure.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("CardTrader.Infrastructure.Data.Models.Card", b =>
+            modelBuilder.Entity("CardTrader.Infrastructure.Data.Models.Binder", b =>
                 {
-                    b.HasOne("CardTrader.Infrastructure.Data.Models.Bulk", null)
+                    b.HasBaseType("CardTrader.Infrastructure.Data.Models.Collection");
+
+                    b.HasDiscriminator().HasValue("Binder");
+                });
+
+            modelBuilder.Entity("CardTrader.Infrastructure.Data.Models.User", b =>
+                {
+                    b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
+
+                    b.Property<string>("BinderId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(36)");
+
+                    b.Property<string>("WantedListId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(36)");
+
+                    b.HasIndex("BinderId")
+                        .IsUnique()
+                        .HasFilter("[BinderId] IS NOT NULL");
+
+                    b.HasIndex("WantedListId")
+                        .IsUnique()
+                        .HasFilter("[WantedListId] IS NOT NULL");
+
+                    b.HasDiscriminator().HasValue("User");
+                });
+
+            modelBuilder.Entity("CardTrader.Infrastructure.Data.Models.Wanted", b =>
+                {
+                    b.HasBaseType("CardTrader.Infrastructure.Data.Models.Collection");
+
+                    b.HasDiscriminator().HasValue("Wanted");
+                });
+
+            modelBuilder.Entity("CardTrader.Infrastructure.Data.Models.CardCollection", b =>
+                {
+                    b.HasOne("CardTrader.Infrastructure.Data.Models.Card", "Card")
+                        .WithMany("Collections")
+                        .HasForeignKey("CardId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("CardTrader.Infrastructure.Data.Models.Collection", "Collection")
                         .WithMany("Cards")
-                        .HasForeignKey("BulkId");
+                        .HasForeignKey("CollectionId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Card");
+
+                    b.Navigation("Collection");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -371,9 +413,45 @@ namespace CardTrader.Infrastructure.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("CardTrader.Infrastructure.Data.Models.Bulk", b =>
+            modelBuilder.Entity("CardTrader.Infrastructure.Data.Models.User", b =>
+                {
+                    b.HasOne("CardTrader.Infrastructure.Data.Models.Binder", "TradeBinder")
+                        .WithOne("User")
+                        .HasForeignKey("CardTrader.Infrastructure.Data.Models.User", "BinderId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("CardTrader.Infrastructure.Data.Models.Wanted", "WantedList")
+                        .WithOne("User")
+                        .HasForeignKey("CardTrader.Infrastructure.Data.Models.User", "WantedListId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("TradeBinder");
+
+                    b.Navigation("WantedList");
+                });
+
+            modelBuilder.Entity("CardTrader.Infrastructure.Data.Models.Card", b =>
+                {
+                    b.Navigation("Collections");
+                });
+
+            modelBuilder.Entity("CardTrader.Infrastructure.Data.Models.Collection", b =>
                 {
                     b.Navigation("Cards");
+                });
+
+            modelBuilder.Entity("CardTrader.Infrastructure.Data.Models.Binder", b =>
+                {
+                    b.Navigation("User")
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("CardTrader.Infrastructure.Data.Models.Wanted", b =>
+                {
+                    b.Navigation("User")
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }
