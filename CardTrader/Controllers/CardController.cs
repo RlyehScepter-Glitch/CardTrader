@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
 namespace CardTrader.Controllers
 {
@@ -9,6 +10,7 @@ namespace CardTrader.Controllers
             return View();
         }
 
+        [AllowAnonymous]
         public IActionResult Info()
         {
             return View();
