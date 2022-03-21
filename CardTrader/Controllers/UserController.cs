@@ -2,7 +2,7 @@
 
 namespace CardTrader.Controllers
 {
-    public class UserController : Controller
+    public class UserController : BaseController
     {
         public IActionResult Account()
         {

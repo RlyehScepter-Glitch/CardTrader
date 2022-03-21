@@ -2,7 +2,7 @@
 
 namespace CardTrader.Controllers
 {
-    public class CollectionController : Controller
+    public class CollectionController : BaseController
     {
         public IActionResult Binder()
         {
