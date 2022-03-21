@@ -81,9 +81,8 @@ namespace CardTrader.Infrastructure.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Discriminator = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    BinderId = table.Column<string>(type: "nvarchar(36)", nullable: true),
-                    WantedListId = table.Column<string>(type: "nvarchar(36)", nullable: true),
+                    BinderId = table.Column<string>(type: "nvarchar(36)", nullable: false),
+                    WantedListId = table.Column<string>(type: "nvarchar(36)", nullable: false),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -261,15 +260,13 @@ namespace CardTrader.Infrastructure.Migrations
                 name: "IX_AspNetUsers_BinderId",
                 table: "AspNetUsers",
                 column: "BinderId",
-                unique: true,
-                filter: "[BinderId] IS NOT NULL");
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetUsers_WantedListId",
                 table: "AspNetUsers",
                 column: "WantedListId",
-                unique: true,
-                filter: "[WantedListId] IS NOT NULL");
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "UserNameIndex",
