@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CardTrader.Infrastructure.Data
 {
-    public class ApplicationDbContext : IdentityDbContext<User>
+    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
@@ -33,16 +33,16 @@ namespace CardTrader.Infrastructure.Data
                 .HasForeignKey(cc => cc.CollectionId)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            modelBuilder.Entity<User>()
+            modelBuilder.Entity<ApplicationUser>()
                 .HasOne(u => u.TradeBinder)
                 .WithOne(b => b.User)
-                .HasForeignKey<User>(u => u.BinderId)
+                .HasForeignKey<ApplicationUser>(u => u.BinderId)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            modelBuilder.Entity<User>()
+            modelBuilder.Entity<ApplicationUser>()
                 .HasOne(u => u.WantedList)
                 .WithOne(w => w.User)
-                .HasForeignKey<User>(u => u.WantedListId)
+                .HasForeignKey<ApplicationUser>(u => u.WantedListId)
                 .OnDelete(DeleteBehavior.Restrict);
 
             base.OnModelCreating(modelBuilder);

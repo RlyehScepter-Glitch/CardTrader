@@ -8,12 +8,22 @@ namespace CardTrader.Infrastructure.Data.Models
         [Key]
         [StringLength(36)]
         public string Id { get; set; } = Guid.NewGuid().ToString();
-        
+
+        public Collection()
+        {
+
+        }
+        public Collection(ApplicationUser _user)
+        {
+            User = _user;
+            UserId = _user.Id;
+        }
+
         //public List<Collection> BulkCards { get; set; }
 
         [Required]
-        public User User { get; set; }
-        public string UserId { get; set; }
+        public ApplicationUser User { get; set; }
+        public string? UserId { get; set; }
 
         public ICollection<CardCollection> Cards { get; set; }
     }

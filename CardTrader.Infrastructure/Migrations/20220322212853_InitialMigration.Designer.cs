@@ -4,6 +4,7 @@ using CardTrader.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CardTrader.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220322212853_InitialMigration")]
+    partial class InitialMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -31,6 +33,7 @@ namespace CardTrader.Infrastructure.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("BinderId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(36)");
 
                     b.Property<string>("ConcurrencyStamp")
@@ -78,13 +81,13 @@ namespace CardTrader.Infrastructure.Migrations
                         .HasColumnType("nvarchar(256)");
 
                     b.Property<string>("WantedListId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(36)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("BinderId")
-                        .IsUnique()
-                        .HasFilter("[BinderId] IS NOT NULL");
+                        .IsUnique();
 
                     b.HasIndex("NormalizedEmail")
                         .HasDatabaseName("EmailIndex");
@@ -95,8 +98,7 @@ namespace CardTrader.Infrastructure.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.HasIndex("WantedListId")
-                        .IsUnique()
-                        .HasFilter("[WantedListId] IS NOT NULL");
+                        .IsUnique();
 
                     b.ToTable("AspNetUsers", (string)null);
                 });
@@ -330,12 +332,14 @@ namespace CardTrader.Infrastructure.Migrations
                     b.HasOne("CardTrader.Infrastructure.Data.Models.Binder", "TradeBinder")
                         .WithOne("User")
                         .HasForeignKey("CardTrader.Infrastructure.Data.Models.ApplicationUser", "BinderId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.HasOne("CardTrader.Infrastructure.Data.Models.Wanted", "WantedList")
                         .WithOne("User")
                         .HasForeignKey("CardTrader.Infrastructure.Data.Models.ApplicationUser", "WantedListId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.Navigation("TradeBinder");
 
