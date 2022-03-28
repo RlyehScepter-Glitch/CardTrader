@@ -1,6 +1,6 @@
-﻿using CardTrader.Contracts;
+﻿using CardTrader.Core.Contracts;
+using CardTrader.Core.Services;
 using CardTrader.Infrastructure.Data;
-using CardTrader.Services;
 using Microsoft.EntityFrameworkCore;
 
 namespace Microsoft.Extensions.DependencyInjection
@@ -11,6 +11,7 @@ namespace Microsoft.Extensions.DependencyInjection
         {
             services.AddScoped<IRepository, Repository>();
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<ICollectionService, CollectionService>();
 
             return services;
         }

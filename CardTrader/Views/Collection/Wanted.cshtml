@@ -1,3 +1,27 @@
-﻿@{
-    Layout = "/Views/Shared/_Layout.cshtml";
+﻿@using CardTrader.Controllers
+@using CardTrader.Infrastructure.Data.Models
+@using Microsoft.AspNetCore.Identity
+@inject UserManager<ApplicationUser> UserManager
+@{
+
+}
+
+@if (UserManager.GetUserAsync(this.User).Result.WantedListId != null)
+{
+    <h1>Wanted List</h1>
+    <div class="button">Add Card</div>
+}
+else
+{
+
+    <div class="card">
+        <div class="card-header">
+            You don't have a Wanted List
+        </div>
+        <div class="card-body">
+            <a asp-controller="Collection" asp-action="CreateWanted">
+                <div class="button">Create Wanted List</div>
+            </a>
+        </div>
+    </div>
 }

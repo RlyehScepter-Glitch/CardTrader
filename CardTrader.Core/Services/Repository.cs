@@ -1,23 +1,22 @@
-﻿using CardTrader.Contracts;
+﻿using CardTrader.Core.Contracts;
 using CardTrader.Infrastructure.Data;
-using CardTrader.Infrastructure.Data.Models;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
-namespace CardTrader.Services
+namespace CardTrader.Core.Services
 {
     public class Repository : IRepository
     {
         private readonly DbContext dbContext;
-        private readonly UserManager<ApplicationUser> userManager;
 
-        public Repository(ApplicationDbContext context
-            , UserManager<ApplicationUser> _userManager)
+        public Repository(ApplicationDbContext context)
         {
             dbContext = context;
-            userManager = _userManager;
         }
 
+        public void Add<T>(T entity) where T : class
+        {
+            DbSet<T>().Add(entity);
+        }
         public IQueryable<T> All<T>() where T : class
         {
             return DbSet<T>().AsQueryable();
@@ -25,6 +24,10 @@ namespace CardTrader.Services
         private DbSet<T> DbSet<T>() where T : class
         {
             return dbContext.Set<T>();
+        }
+        public int SaveChanges()
+        {
+            return dbContext.SaveChanges();
         }
     }
 }
