@@ -2,3 +2,8 @@
 // for details on configuring this project to bundle and minify static web assets.
 
 // Write your JavaScript code.
+
+function changeImage(imgUrl) {
+    var img = document.getElementById("dimg");
+    img.src = imgUrl.value;
+}

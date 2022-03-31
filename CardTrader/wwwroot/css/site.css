@@ -23,6 +23,8 @@ body {
     margin: 0;
     padding: 0;
     background-color: #18141d;
+    color: #7900f1;
+    font-family: sans-serif;
 }
 
 header {
@@ -32,11 +34,16 @@ header {
     font-family: sans-serif;
 }
 
-.navbar {
+.navbar-custom {
     color: #7900f1;
     background-color: #1b0d2b;
     border-color: #a46bdd;
     font-family: sans-serif;
+}
+
+.nav-link-custom {
+    color: #7900f1;
+    font-weight: 400;
 }
 
 .container {
@@ -94,6 +101,46 @@ header {
     align-items: center;
 }
 
-a{
+a {
+    color: #7900f1;
     text-decoration: none;
 }
+
+.cc-selector input {
+    margin: 0;
+    padding: 0;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+
+.cc-selector input:active + .drinkcard-cc {
+    opacity: .9;
+}
+
+.cc-selector input:checked + .drinkcard-cc {
+    -webkit-filter: none;
+    -moz-filter: none;
+    filter: none;
+}
+
+.drinkcard-cc {
+    cursor: pointer;
+    background-size: contain;
+    background-repeat: no-repeat;
+    display: inline-block;
+    width: 100px;
+    height: 70px;
+    -webkit-transition: all 100ms ease-in;
+    -moz-transition: all 100ms ease-in;
+    transition: all 100ms ease-in;
+    -webkit-filter: brightness(1.8) grayscale(1) opacity(.7);
+    -moz-filter: brightness(1.8) grayscale(1) opacity(.7);
+    filter: brightness(1.8) grayscale(1) opacity(.7);
+}
+
+    .drinkcard-cc:hover {
+        -webkit-filter: brightness(1.2) grayscale(.5) opacity(.9);
+        -moz-filter: brightness(1.2) grayscale(.5) opacity(.9);
+        filter: brightness(1.2) grayscale(.5) opacity(.9);
+    }

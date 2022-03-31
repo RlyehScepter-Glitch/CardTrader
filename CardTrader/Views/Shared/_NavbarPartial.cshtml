@@ -7,31 +7,31 @@
     @if (SignInManager.IsSignedIn(User))
     {
         <li class="nav-item">
-            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+            <a class="nav-link-custom" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            <a class="nav-link-custom" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link text-dark" asp-area="" asp-controller="Collection" asp-action="Binder">Trade Binder</a>
+            <a class="nav-link-custom" asp-area="" asp-controller="Collection" asp-action="Binder">Trade Binder</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link text-dark" asp-area="" asp-controller="Collection" asp-action="Wanted">Wanted List</a>
+            <a class="nav-link-custom" asp-area="" asp-controller="Collection" asp-action="Wanted">Wanted List</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link text-dark" asp-area="" asp-controller="Card" asp-action="Create">Create Card</a>
+            <a class="nav-link-custom" asp-area="" asp-controller="Card" asp-action="Create">Create Card</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link text-dark" asp-area="" asp-controller="Card" asp-action="Info">Card Info</a>
+            <a class="nav-link-custom" asp-area="" asp-controller="Card" asp-action="Info">Card Info</a>
         </li>
     }
     else
     {
         <li class="nav-item">
-            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+            <a class="nav-link-custom" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            <a class="nav-link-custom" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </li>
     }
 </ul>

@@ -11,9 +11,9 @@ namespace CardTrader.Infrastructure.Data.Models
         [Required]
         public string Name { get; set; }
 
-        public Rarity Rarity { get; set; }
-
         public string Expansion { get; set; }
+
+        public Rarity Rarity { get; set; }
 
         public string Language { get; set; }
 
