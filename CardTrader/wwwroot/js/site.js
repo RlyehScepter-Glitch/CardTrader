@@ -3,7 +3,12 @@
 
 // Write your JavaScript code.
 
-function changeImage(imgUrl) {
-    var img = document.getElementById("dimg");
-    img.src = imgUrl.value;
+function changeImage() {
+    var select = document.getElementById("image-select");
+
+    var image = document.getElementById("dimg");
+
+    var imageUrl = select.value;
+
+    image.src = imageUrl
 }

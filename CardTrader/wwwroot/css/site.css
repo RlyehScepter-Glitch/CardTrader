@@ -81,10 +81,37 @@ header {
         text-shadow: 0 0 20px #7900f1;
     }
 
+.button-form {
+    position: relative;
+    text-align: center;
+    width: 150px;
+    height: 30px;
+    font-size: 16px;
+    color: #7900f1;
+    font-family: sans-serif;
+    font-weight: 400;
+    border: 3px solid #7900f1;
+    background-color: #0C0019;
+    cursor: pointer;
+    border-radius: 7px;
+    user-select: none;
+}
+
+.button-form:hover {
+    color: #8000ff;
+    box-shadow: 0 0px 5px 0 inset #7900f1, 0 0px 5px 0 #7900f1;
+}
+
+.button-form:active {
+    background-color: #200b36;
+    box-shadow: 0 0px 20px 0 inset #7900f1;
+    text-shadow: 0 0 20px #7900f1;
+}
+
 .card {
     position: unset;
-    border: 5px solid #af84db;
-    background-color: #a46bdd;
+    border: 5px solid #7900f1;
+    background-color: #0C0019;
 }
 
 .card-header {
@@ -92,13 +119,12 @@ header {
     font-family: sans-serif;
     font-weight: 500;
     font-size: 40px;
-    color: #200041;
+    background-color: #1b0d2b;
+    color: #7900f1;
+    border-bottom: 5px solid #7900f1;
 }
 
 .card-body {
-    align-self: center;
-    align-content: center;
-    align-items: center;
 }
 
 a {
@@ -106,41 +132,11 @@ a {
     text-decoration: none;
 }
 
-.cc-selector input {
-    margin: 0;
-    padding: 0;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
+.master {
+    display: table;
 }
 
-.cc-selector input:active + .drinkcard-cc {
-    opacity: .9;
+.img, .frm {
+    display: table-cell;
+    vertical-align: top;
 }
-
-.cc-selector input:checked + .drinkcard-cc {
-    -webkit-filter: none;
-    -moz-filter: none;
-    filter: none;
-}
-
-.drinkcard-cc {
-    cursor: pointer;
-    background-size: contain;
-    background-repeat: no-repeat;
-    display: inline-block;
-    width: 100px;
-    height: 70px;
-    -webkit-transition: all 100ms ease-in;
-    -moz-transition: all 100ms ease-in;
-    transition: all 100ms ease-in;
-    -webkit-filter: brightness(1.8) grayscale(1) opacity(.7);
-    -moz-filter: brightness(1.8) grayscale(1) opacity(.7);
-    filter: brightness(1.8) grayscale(1) opacity(.7);
-}
-
-    .drinkcard-cc:hover {
-        -webkit-filter: brightness(1.2) grayscale(.5) opacity(.9);
-        -moz-filter: brightness(1.2) grayscale(.5) opacity(.9);
-        filter: brightness(1.2) grayscale(.5) opacity(.9);
-    }
