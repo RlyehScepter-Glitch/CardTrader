@@ -1,15 +1,33 @@
 ﻿@using CardTrader.Controllers
 @using CardTrader.Infrastructure.Data.Models
 @using Microsoft.AspNetCore.Identity
-@inject UserManager<ApplicationUser> UserManager
 @{
 
 }
 
-@if (UserManager.GetUserAsync(this.User).Result.WantedListId != null)
+@if ((bool)ViewData["HasWanted"])
 {
     <h1>Wanted List</h1>
-    <div class="button">Add Card</div>
+
+    @*if (true)
+    {
+        @foreach ()
+        {
+            <div class="Card">
+                <div class="card-header">
+                    @card.Name
+                </div>
+                <div class="card-body">
+                    <img src="@card.ImageUrl" align="middle"></img>
+                </div>
+            </div>
+        }
+
+    }*@
+
+    <a href="~/Card/Create">
+        <div class="button">Add Card</div>
+    </a>
 }
 else
 {

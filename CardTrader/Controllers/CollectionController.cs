@@ -23,16 +23,28 @@ namespace CardTrader.Controllers
         
         public IActionResult Binder()
         {
+            bool hasBinder = HasBinder();
+            ViewData["HasBinder"] = hasBinder;
+
+            var user = GetUser();
+            var binderId = user.Result.BinderId;
+
             return View();
         }
         public IActionResult Wanted()
         {
+            bool hasWanted = HasWanted();
+            ViewData["HasWanted"] = hasWanted;
+
+            var user = GetUser();
+            var wantedListId = user.Result.WantedListId;
+
             return View();
         }
 
-        public bool HasBinder(HttpContext context) => GetUser().Result.TradeBinder != null;
+        public bool HasBinder() => GetUser().Result.BinderId != null;
 
-        public bool HasWanted(HttpContext context) => GetUser().Result.WantedList != null;
+        public bool HasWanted() => GetUser().Result.WantedListId != null;
 
         public async Task<ApplicationUser> GetUser()
         {

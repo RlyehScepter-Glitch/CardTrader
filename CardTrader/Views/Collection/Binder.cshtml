@@ -1,15 +1,31 @@
 ﻿@using CardTrader.Controllers
 @using CardTrader.Infrastructure.Data.Models
 @using Microsoft.AspNetCore.Identity
-@inject UserManager<ApplicationUser> UserManager
 @{
 
 }
 
-@if (UserManager.GetUserAsync(this.User).Result.BinderId != null)
+@if ((bool)ViewData["HasBinder"])
 {
     <h1>Trade Binder</h1>
-    <div class="button">Add Card</div>
+
+    @*if ()
+    {
+        @foreach (Card card in user.Result.TradeBinder.Cards)
+        {
+            <div class="Card">
+                <div class="card-header">
+                    @card.Name
+                </div>
+                <div class="card-body">
+                    <img src="@card.ImageUrl" align="middle"></img>
+                </div>
+            </div>
+        }
+    }*@
+    <a href="~/Card/Create">
+        <div class="button">Add Card</div>
+    </a>
 }
 else
 {
