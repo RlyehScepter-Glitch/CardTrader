@@ -1,4 +1,5 @@
 ﻿using CardTrader.Core.Contracts;
+using CardTrader.Infrastructure.Data;
 using CardTrader.Infrastructure.Data.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -10,15 +11,18 @@ namespace CardTrader.Controllers
         private readonly IRepository repo;
         private readonly ICollectionService collectionService;
         private readonly UserManager<ApplicationUser> userManager;
+        private readonly ApplicationDbContext context;
 
         public CollectionController(
             ICollectionService _collectionService,
             IRepository _repo,
-            UserManager<ApplicationUser> _userManager)
+            UserManager<ApplicationUser> _userManager,
+            ApplicationDbContext _context)
         {
             collectionService = _collectionService;
             repo = _repo;
             userManager = _userManager;
+            context = _context;
         }
         
         public IActionResult Binder()
@@ -26,9 +30,14 @@ namespace CardTrader.Controllers
             bool hasBinder = HasBinder();
             ViewData["HasBinder"] = hasBinder;
 
-            //var user = GetUser();
-            //var binder = user.Result.TradeBinder.Cards;
-            //ViewData["TradeBinder"] = binder;
+            var user = GetUser();
+            var binderId = user.Result.BinderId;
+            var cards = context
+                .Cards
+                .Where(c => c.CollectionId == binderId)
+                .ToList();
+
+            ViewData["Cards"] = cards;
 
             return View();
         }
@@ -39,6 +48,13 @@ namespace CardTrader.Controllers
 
             var user = GetUser();
             var wantedListId = user.Result.WantedListId;
+            
+            var cards = context
+                .Cards
+                .Where(c => c.CollectionId == wantedListId)
+                .ToList();
+
+            ViewData["Cards"] = cards;
 
             return View();
         }

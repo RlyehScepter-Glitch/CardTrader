@@ -9,9 +9,7 @@
 {
     <h1>Wanted List</h1>
 
-    @*if (true)
-    {
-        @foreach ()
+    @foreach (Card card in (List<Card>)ViewData["Cards"])
         {
             <div class="Card">
                 <div class="card-header">
@@ -22,7 +20,6 @@
                 </div>
             </div>
         }
-    }*@
 
     <a href="~/Card/Create">
         <div class="button">Add Card</div>
