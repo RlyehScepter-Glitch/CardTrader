@@ -15,6 +15,6 @@ namespace CardTrader.Core.Contracts
             bool _FirstEdition,
             string _MinimumCondition,
             string _ImageUrl,
-            Collection _Collection);
+            string _CollectionId);
     }
 }

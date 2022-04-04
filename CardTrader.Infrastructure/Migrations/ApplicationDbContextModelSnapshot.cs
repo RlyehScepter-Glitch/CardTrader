@@ -103,18 +103,16 @@ namespace CardTrader.Infrastructure.Migrations
 
             modelBuilder.Entity("CardTrader.Infrastructure.Data.Models.Card", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+                    b.Property<string>("CollectionId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(36)");
 
                     b.Property<string>("Expansion")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("FirstEdition")
-                        .HasColumnType("bit");
 
                     b.Property<string>("ImageUrl")
                         .IsRequired()
@@ -131,27 +129,15 @@ namespace CardTrader.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Rarity")
-                        .HasColumnType("int");
+                    b.Property<string>("Rarity")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Cards");
-                });
-
-            modelBuilder.Entity("CardTrader.Infrastructure.Data.Models.CardCollection", b =>
-                {
-                    b.Property<int>("CardId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("CollectionId")
-                        .HasColumnType("nvarchar(36)");
-
-                    b.HasKey("CardId", "CollectionId");
-
                     b.HasIndex("CollectionId");
 
-                    b.ToTable("CardCollection");
+                    b.ToTable("Cards", (string)null);
                 });
 
             modelBuilder.Entity("CardTrader.Infrastructure.Data.Models.Collection", b =>
@@ -169,7 +155,7 @@ namespace CardTrader.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Collections");
+                    b.ToTable("Collections", (string)null);
 
                     b.HasDiscriminator<string>("Discriminator").HasValue("Collection");
                 });
@@ -342,21 +328,13 @@ namespace CardTrader.Infrastructure.Migrations
                     b.Navigation("WantedList");
                 });
 
-            modelBuilder.Entity("CardTrader.Infrastructure.Data.Models.CardCollection", b =>
+            modelBuilder.Entity("CardTrader.Infrastructure.Data.Models.Card", b =>
                 {
-                    b.HasOne("CardTrader.Infrastructure.Data.Models.Card", "Card")
-                        .WithMany("Collections")
-                        .HasForeignKey("CardId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
                     b.HasOne("CardTrader.Infrastructure.Data.Models.Collection", "Collection")
                         .WithMany("Cards")
                         .HasForeignKey("CollectionId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Card");
 
                     b.Navigation("Collection");
                 });
@@ -410,11 +388,6 @@ namespace CardTrader.Infrastructure.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("CardTrader.Infrastructure.Data.Models.Card", b =>
-                {
-                    b.Navigation("Collections");
                 });
 
             modelBuilder.Entity("CardTrader.Infrastructure.Data.Models.Collection", b =>

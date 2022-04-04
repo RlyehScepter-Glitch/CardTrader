@@ -32,7 +32,7 @@ namespace CardTrader.Core.Services
             bool _FirstEdition,
             string _MinimumCondition,
             string _ImageUrl,
-            Collection _Collection)
+            string _CollectionId)
         {
             Card card = new Card
             {
@@ -43,7 +43,7 @@ namespace CardTrader.Core.Services
                 FirstEdition = _FirstEdition,
                 MinimumCondition = Enum.Parse<Condition>(_MinimumCondition),
                 ImageUrl = _ImageUrl,
-                CollectionId = _Collection.Id
+                CollectionId = _CollectionId
             };
 
             return card;

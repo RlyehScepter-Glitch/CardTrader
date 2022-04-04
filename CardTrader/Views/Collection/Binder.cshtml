@@ -9,9 +9,7 @@
 {
     <h1>Trade Binder</h1>
 
-    @*if ()
-    {
-        @foreach (Card card in user.Result.TradeBinder.Cards)
+    @*@foreach (Card card in (ICollection<Card>)ViewData["TradeBinder"])
         {
             <div class="Card">
                 <div class="card-header">
@@ -21,8 +19,8 @@
                     <img src="@card.ImageUrl" align="middle"></img>
                 </div>
             </div>
-        }
-    }*@
+        }*@
+
     <a href="~/Card/Create">
         <div class="button">Add Card</div>
     </a>

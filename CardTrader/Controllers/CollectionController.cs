@@ -26,8 +26,9 @@ namespace CardTrader.Controllers
             bool hasBinder = HasBinder();
             ViewData["HasBinder"] = hasBinder;
 
-            var user = GetUser();
-            var binderId = user.Result.BinderId;
+            //var user = GetUser();
+            //var binder = user.Result.TradeBinder.Cards;
+            //ViewData["TradeBinder"] = binder;
 
             return View();
         }

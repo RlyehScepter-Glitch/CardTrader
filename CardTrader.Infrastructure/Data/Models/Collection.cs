@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CardTrader.Infrastructure.Data.Models
 {
@@ -25,6 +24,7 @@ namespace CardTrader.Infrastructure.Data.Models
         public ApplicationUser User { get; set; }
         public string? UserId { get; set; }
 
-        public ICollection<CardCollection> Cards { get; set; }
+        public ICollection<Card> Cards { get; set; }
+
     }
 }

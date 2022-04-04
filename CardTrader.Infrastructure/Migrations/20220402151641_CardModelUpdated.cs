@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace CardTrader.Infrastructure.Migrations
 {
-    public partial class InitialMigration : Migration
+    public partial class CardModelUpdated : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -21,25 +21,6 @@ namespace CardTrader.Infrastructure.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetRoles", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Cards",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Rarity = table.Column<int>(type: "int", nullable: false),
-                    Expansion = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Language = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    FirstEdition = table.Column<bool>(type: "bit", nullable: false),
-                    MinimumCondition = table.Column<int>(type: "int", nullable: false),
-                    ImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Cards", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -81,8 +62,8 @@ namespace CardTrader.Infrastructure.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    BinderId = table.Column<string>(type: "nvarchar(36)", nullable: false),
-                    WantedListId = table.Column<string>(type: "nvarchar(36)", nullable: false),
+                    BinderId = table.Column<string>(type: "nvarchar(36)", nullable: true),
+                    WantedListId = table.Column<string>(type: "nvarchar(36)", nullable: true),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -116,27 +97,27 @@ namespace CardTrader.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "CardCollection",
+                name: "Cards",
                 columns: table => new
                 {
-                    CardId = table.Column<int>(type: "int", nullable: false),
+                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Expansion = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Rarity = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Language = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    MinimumCondition = table.Column<int>(type: "int", nullable: false),
+                    ImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CollectionId = table.Column<string>(type: "nvarchar(36)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_CardCollection", x => new { x.CardId, x.CollectionId });
+                    table.PrimaryKey("PK_Cards", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_CardCollection_Cards_CardId",
-                        column: x => x.CardId,
-                        principalTable: "Cards",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_CardCollection_Collections_CollectionId",
+                        name: "FK_Cards_Collections_CollectionId",
                         column: x => x.CollectionId,
                         principalTable: "Collections",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -260,13 +241,15 @@ namespace CardTrader.Infrastructure.Migrations
                 name: "IX_AspNetUsers_BinderId",
                 table: "AspNetUsers",
                 column: "BinderId",
-                unique: true);
+                unique: true,
+                filter: "[BinderId] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetUsers_WantedListId",
                 table: "AspNetUsers",
                 column: "WantedListId",
-                unique: true);
+                unique: true,
+                filter: "[WantedListId] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
                 name: "UserNameIndex",
@@ -276,8 +259,8 @@ namespace CardTrader.Infrastructure.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_CardCollection_CollectionId",
-                table: "CardCollection",
+                name: "IX_Cards_CollectionId",
+                table: "Cards",
                 column: "CollectionId");
         }
 
@@ -299,16 +282,13 @@ namespace CardTrader.Infrastructure.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "CardCollection");
+                name: "Cards");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
-
-            migrationBuilder.DropTable(
-                name: "Cards");
 
             migrationBuilder.DropTable(
                 name: "Collections");

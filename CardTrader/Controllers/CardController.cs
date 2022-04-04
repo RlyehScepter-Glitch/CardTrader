@@ -30,6 +30,7 @@ namespace CardTrader.Controllers
         }
 
         [HttpPost]
+        [Route("/Card/GetCard")]
         public IActionResult Create(string cardName)
         {
             CardDTO card = cardService.CardInfo(cardName);
@@ -39,7 +40,8 @@ namespace CardTrader.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(
+        [Route("/Card/CreateCard")]
+        public async Task<IActionResult> CreateCard(
             string _Name,
             string _Expansion,
             string _Rarity,
@@ -50,18 +52,18 @@ namespace CardTrader.Controllers
             string collectionName)
         {
             var user = await userManager.GetUserAsync(this.HttpContext.User);
-            Collection _Collection;
+            string _CollectionId;
 
             if (collectionName == "Binder")
             {
-                _Collection = user.TradeBinder;
+                _CollectionId = user.BinderId;
             }
             else
             {
-                _Collection = user.WantedList;
+                _CollectionId = user.WantedListId;
             }
 
-            Card card = cardService.CreateCard(_Name, _Expansion, _Rarity, _Language, _FirstEdition, _MinimumCondition, _ImageUrl, _Collection);
+            Card card = cardService.CreateCard(_Name, _Expansion, _Rarity, _Language, _FirstEdition, _MinimumCondition, _ImageUrl, _CollectionId);
 
             repo.Add(card);
             repo.SaveChanges();
