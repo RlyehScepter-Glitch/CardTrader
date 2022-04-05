@@ -11,12 +11,12 @@
 
     @foreach (Card card in (List<Card>)ViewData["Cards"])
         {
-            <div class="Card">
-                <div class="card-header">
+            <div class="card-small">
+                <div class="card-header-small">
                     @card.Name
                 </div>
-                <div class="card-body">
-                    <img src="@card.ImageUrl" align="middle"></img>
+                <div class="card-body-small">
+                    <img src="@card.ImageUrl" align="middle" width="177" height="258"></img>
                 </div>
             </div>
         }

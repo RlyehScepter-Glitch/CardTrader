@@ -127,6 +127,27 @@ header {
 .card-body {
 }
 
+.card-small {
+    position: static;
+    border: 5px solid #7900f1;
+    background-color: #0C0019;
+    inline-size: min-content;
+    display: table-cell;
+}
+
+.card-header-small {
+    text-align: center;
+    font-family: sans-serif;
+    font-weight: 500;
+    font-size: 25px;
+    background-color: #1b0d2b;
+    color: #7900f1;
+    border-bottom: 5px solid #7900f1;
+}
+
+.card-body-small {
+}
+
 a {
     color: #7900f1;
     text-decoration: none;
