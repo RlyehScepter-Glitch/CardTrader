@@ -112,6 +112,7 @@ header {
     position: unset;
     border: 5px solid #7900f1;
     background-color: #0C0019;
+    user-select: none;
 }
 
 .card-header {
@@ -122,9 +123,11 @@ header {
     background-color: #1b0d2b;
     color: #7900f1;
     border-bottom: 5px solid #7900f1;
+    user-select: none;
 }
 
 .card-body {
+    user-select: none;
 }
 
 .card-small {
@@ -133,6 +136,9 @@ header {
     background-color: #0C0019;
     inline-size: min-content;
     display: table-cell;
+    user-select: none;
+    width: auto;
+    margin: auto;
 }
 
 .card-header-small {
@@ -143,9 +149,39 @@ header {
     background-color: #1b0d2b;
     color: #7900f1;
     border-bottom: 5px solid #7900f1;
+    user-select: none;
 }
 
 .card-body-small {
+    user-select: none;
+}
+
+.card-info {
+    position: static;
+    border: 5px solid #7900f1;
+    background-color: #0C0019;
+    display: table;
+    user-select: none;
+    width: auto;
+    margin: auto;
+}
+
+.card-header-info {
+    text-align: center;
+    font-family: sans-serif;
+    font-weight: 500;
+    font-size: 40px;
+    background-color: #1b0d2b;
+    color: #7900f1;
+    border-bottom: 5px solid #7900f1;
+    user-select: none;
+}
+
+.card-body-info {
+    user-select: none;
+    font-size: 30px;
+    font-weight: 400;
+    text-align: justify;
 }
 
 a {

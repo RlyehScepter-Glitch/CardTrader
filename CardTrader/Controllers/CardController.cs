@@ -1,5 +1,6 @@
 ﻿using CardTrader.Core.Contracts;
 using CardTrader.Core.DataTransferObjects;
+using CardTrader.Infrastructure.Data;
 using CardTrader.Infrastructure.Data.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -11,21 +12,33 @@ namespace CardTrader.Controllers
         private readonly ICardService cardService;
         private readonly IRepository repo;
         private readonly UserManager<ApplicationUser> userManager;
+        private readonly ApplicationDbContext context;
         public CardController(ICardService _cardService,
             IRepository _repo,
-            UserManager<ApplicationUser> _userManager)
+            UserManager<ApplicationUser> _userManager,
+            ApplicationDbContext _context)
         {
             cardService = _cardService;
             repo = _repo;
             userManager = _userManager;
+            context = _context;
         }
         public IActionResult Create()
         {
             return View();
         }
 
-        public IActionResult Info()
+        [HttpPost]
+        [Route("/Card/Info")]
+        public IActionResult Info(string cardId)
         {
+            var card = context
+                .Cards
+                .Where(c => c.Id == cardId)
+                .FirstOrDefault();
+
+            ViewBag.Card = card;
+
             return View();
         }
 

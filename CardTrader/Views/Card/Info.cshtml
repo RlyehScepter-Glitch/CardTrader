@@ -1,3 +1,25 @@
-﻿@{
+﻿@using CardTrader.Infrastructure.Data.Models
+@{
     Layout = "/Views/Shared/_Layout.cshtml";
+    var card = (Card)ViewBag.Card;
 }
+
+<div class="card-info">
+    <div class="card-header-info">
+        @card.Name
+    </div>
+    <div class="card-body-info">
+        <div class="img">
+            <img src="@card.ImageUrl"></img>
+        </div>
+        <div class="frm">
+            <ul>
+                <li>Expansion: @card.Expansion</li>
+                <li>Rarity: @card.Rarity</li>
+                <li>Language: @card.Language</li>
+                <li>FirstEdition: @card.FirstEdition</li>
+                <li>Condition: @card.MinimumCondition</li>
+            </ul>
+        </div>
+    </div>
+</div>

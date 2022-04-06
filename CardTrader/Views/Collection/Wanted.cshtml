@@ -10,16 +10,19 @@
     <h1>Wanted List</h1>
 
     @foreach (Card card in (List<Card>)ViewData["Cards"])
-        {
-            <div class="card-small">
-                <div class="card-header-small">
-                    @card.Name
-                </div>
-                <div class="card-body-small">
-                    <img src="@card.ImageUrl" align="middle" width="177" height="258"></img>
-                </div>
+    {
+        <div class="card-small">
+            <div class="card-header-small">
+                @card.Name
             </div>
-        }
+            <div class="card-body-small">
+                <form asp-controller="Card" asp-action="Info">
+                    <input type="hidden" name="cardId" value="@card.Id">
+                    <input type="image" src="@card.ImageUrl" align="middle" width="177" height="258">
+                </form>
+            </div>
+        </div>
+    }
 
     <a href="~/Card/Create">
         <div class="button">Add Card</div>
