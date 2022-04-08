@@ -6,5 +6,7 @@ namespace CardTrader.Core.Contracts
     {
         public Binder CreateBinder(ApplicationUser _user);
         public Wanted CreateWanted(ApplicationUser _user);
+
+        public List<Card> GetCards(string collectionId);
     }
 }
