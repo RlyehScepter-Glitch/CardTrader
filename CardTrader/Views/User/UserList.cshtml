@@ -1,0 +1,21 @@
+﻿@using CardTrader.Core.ViewModels
+@{
+    var users = (List<UserViewModel>)ViewData["Users"];
+}
+
+<ul>
+    @foreach (var user in users)
+    {
+        <li>
+            <div>@user.UserName</div>
+            <form asp-controller="User" asp-action="UserBinder">
+                <input type="hidden" name="username" value="@user.UserName">
+                <input type="submit" class="button-form" value="Binder">
+            </form>
+            <form asp-controller="User" asp-action="UserWanted">
+                <input type="hidden" name="username" value="@user.UserName">
+                <input type="submit" class="button-form" value="Wanted">
+            </form>
+        </li>
+    }
+</ul>
