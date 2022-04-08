@@ -1,0 +1,8 @@
+﻿@{
+    Layout = "/Views/Shared/_Layout.cshtml";
+    string username = (string)ViewBag.Username;
+}
+
+<h1>@(username)'s Wanted List</h1>
+
+<partial name="_WantedPartial"></partial>
