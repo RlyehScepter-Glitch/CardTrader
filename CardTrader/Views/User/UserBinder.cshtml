@@ -1,6 +1,6 @@
 ﻿@{
     Layout = "/Views/Shared/_Layout.cshtml";
-    string username = (string)ViewBag.Username;
+    string username = (string)ViewData["Username"];
 }
 
 <h1>@(username)'s Trade Binder</h1>

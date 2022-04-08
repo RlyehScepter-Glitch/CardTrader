@@ -1,10 +1,16 @@
-﻿
-@{
+﻿@{
     Layout = "/Views/Shared/_Layout.cshtml";
-    string username = (string)ViewBag.Username;
+    string username = (string)ViewData["Username"];
 }
+
 <h1>@(username)'s Collection</h1>
 
-<div class="button">View Trade Binder</div>
+<form asp-controller="User" asp-action="UserBinder">
+    <input type="hidden" name="username" value="@username">
+    <div class="button">View Trade Binder</div>
+</form>
 
-<div class="button">View Wanted Cards</div>
+<form asp-controller="User" asp-action="UserWanted">
+    <input type="hidden" name="username" value="@username">
+    <div class="button">View Wanted Cards</div>
+</form>
