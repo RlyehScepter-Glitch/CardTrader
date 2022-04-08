@@ -24,8 +24,4 @@
     <ProjectReference Include="..\CardTrader.Infrastructure\CardTrader.Infrastructure.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="ViewModels\" />
-  </ItemGroup>
-
 </Project>
