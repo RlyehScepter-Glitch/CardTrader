@@ -1,4 +1,5 @@
 ﻿using CardTrader.Core.Contracts;
+using CardTrader.Core.ViewModels;
 using CardTrader.Infrastructure.Data;
 using CardTrader.Infrastructure.Data.Models;
 
@@ -21,6 +22,21 @@ namespace CardTrader.Core.Services
                 .FirstOrDefault();
 
             return user;
+        }
+
+        public IEnumerable<UserViewModel> GetListOfUsers()
+        {
+            var users = context
+                .Users
+                .Select(u => new UserViewModel
+                {
+                    UserName = u.UserName,
+                    BinderId = u.BinderId,
+                    WantedListId = u.WantedListId
+                })
+                .ToList();
+
+            return users;
         }
     }
 }
