@@ -1,5 +1,30 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@using CardTrader.Infrastructure.Data.Models
 @{
+    var threads = (List<ForumThread>)ViewData["Threads"];
 }
+
+<body>
+    <div class="main">
+        <a class="button" href="~/Forum/CreateThread">Create New Thread</a>
+
+        <ol>
+            @foreach(var thread in threads)
+            {
+                <li class="row">
+                    <form asp-controller="Forum" asp-action="Thread">
+                        <input type="hidden" name="threadId" value="@thread.Id">
+                        <input class="title">@thread.Title
+                        <div class="bottom">
+                            <p class="timestamp">
+                                @thread.CreationDate
+                            </p>
+                            <p class="comment-count">
+                                @thread.Comments.Count
+                            </p>
+                        </div>
+                    </form>
+                </li>
+            }
+        </ol>
+    </div>
+</body>

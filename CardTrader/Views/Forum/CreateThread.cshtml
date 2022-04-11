@@ -1,0 +1,15 @@
+﻿@{
+    var userId = (string)ViewData["UserId"];
+}
+
+<div class="card">
+    <div class="card-header-small">Create</div>
+    <div class="card-body-small">
+        <form asp-controller="Forum" asp-action="Create">
+            <input type="hidden" name="_userId" value="@userId">
+            <input type="text" name="_title">Title:
+            <input type="text" name="_content">Content:
+            <input type="submit" class="button-form">Submit
+        </form>
+    </div>
+</div>

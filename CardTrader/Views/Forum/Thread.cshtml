@@ -1,5 +1,49 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@using CardTrader.Infrastructure.Data.Models
 @{
+    var thread = (ForumThread)ViewData["Thread"];
+    var comments = (List<ForumComment>)ViewData["Comments"];
 }
+
+<body>
+    <div class="top-bar">
+        <h1>
+        </h1>
+    </div>
+    <div class="main">
+        <div class="header">
+            <h4 class="title">
+                @thread.Title
+            </h4>
+            <div class="bottom">
+                <p class="timestamp">
+                    @thread.CreationDate
+                </p>
+                <p class="comment-count">
+                    @thread.Comments.Count
+                </p>
+            </div>
+        </div>
+
+        <textarea></textarea>
+        <div class="button">Add comment</div>
+
+        <div class="comments">
+            @foreach (var comment in comments)
+            {
+                <div class="comment">
+                    <div class="top-comment">
+                        <p class="user">
+                            @comment.CreatorName
+                        </p>
+                        <p class="timestamp">
+                            @comment.CreationDate
+                        </p>
+                    </div>
+                    <div class="comment-content">
+                        @comment.Content
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</body>
