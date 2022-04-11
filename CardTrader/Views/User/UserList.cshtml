@@ -6,7 +6,7 @@
 <ul>
     @foreach (var user in users)
     {
-        <li>
+        <li class="d-flex">
             <div>@user.UserName</div>
             <form asp-controller="User" asp-action="UserBinder">
                 <input type="hidden" name="username" value="@user.UserName">
