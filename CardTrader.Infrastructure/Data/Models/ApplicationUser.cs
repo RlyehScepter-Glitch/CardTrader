@@ -13,8 +13,7 @@ namespace CardTrader.Infrastructure.Data.Models
         [ForeignKey(nameof(WantedList))]
         public string? WantedListId { get; set; }
 
-        //public List<Message> Messages { get; set; }
-
-        //Friendlist maybe?
+        public ICollection<ForumThread> Threads { get; set; }
+        public ICollection<ForumComment> Comments { get; set; }
     }
 }
