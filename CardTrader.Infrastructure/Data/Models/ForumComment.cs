@@ -10,6 +10,7 @@ namespace CardTrader.Infrastructure.Data.Models
 
         public ApplicationUser Creator { get; set; }
         public string CreatorId { get; set; }
+        public string CreatorName { get; set; }
 
         [Required]
         public string Content { get; set; }

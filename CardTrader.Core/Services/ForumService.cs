@@ -36,6 +36,7 @@ namespace CardTrader.Core.Services
             var comments = context
                 .ForumComments
                 .Where(c => c.ForumThreadId == threadId)
+                .OrderBy(c => c.CreationDate)
                 .ToList();
 
             return comments;
@@ -51,6 +52,19 @@ namespace CardTrader.Core.Services
             };
 
             return thread;
+        }
+
+        public ForumComment CreateComment(string _userId, string _username, string _threadId, string _content)
+        {
+            ForumComment comment = new ForumComment
+            {
+                CreatorId = _userId,
+                CreatorName = _username,
+                ForumThreadId = _threadId,
+                Content = _content
+            };
+
+            return comment;
         }
     }
 }

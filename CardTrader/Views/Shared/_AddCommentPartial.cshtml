@@ -1,0 +1,16 @@
+﻿@using CardTrader.Infrastructure.Data.Models
+@{
+    var thread = (ForumThread)ViewData["Thread"];
+}
+
+<div class="card">
+    <div class="card-header-small">Create</div>
+    <div class="card-body-small">
+        <form asp-controller="Forum" asp-action="AddComment">
+            <input type="hidden" name="_threadId" value="@thread.Id">
+            <label for="_content">Comment:</label>
+            <input type="text" name="_content">
+            <input type="submit" class="button-form">
+        </form>
+    </div>
+</div>

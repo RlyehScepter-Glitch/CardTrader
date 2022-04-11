@@ -3,9 +3,10 @@
     var threads = (List<ForumThread>)ViewData["Threads"];
 }
 
+<a class="button mb-5" href="~/Forum/CreateThread">Create New Thread</a>
+
 <body>
     <div class="main">
-        <a class="button" href="~/Forum/CreateThread">Create New Thread</a>
 
         <ol>
             @foreach(var thread in threads)
@@ -13,13 +14,11 @@
                 <li class="row">
                     <form asp-controller="Forum" asp-action="Thread">
                         <input type="hidden" name="threadId" value="@thread.Id">
-                        <input class="title">@thread.Title
+                        <input type="submit" class="button-form" value="See Thread">
+                        <div>@thread.Title</div>
                         <div class="bottom">
                             <p class="timestamp">
                                 @thread.CreationDate
-                            </p>
-                            <p class="comment-count">
-                                @thread.Comments.Count
                             </p>
                         </div>
                     </form>

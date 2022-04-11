@@ -5,10 +5,6 @@
 }
 
 <body>
-    <div class="top-bar">
-        <h1>
-        </h1>
-    </div>
     <div class="main">
         <div class="header">
             <h4 class="title">
@@ -19,29 +15,29 @@
                     @thread.CreationDate
                 </p>
                 <p class="comment-count">
-                    @thread.Comments.Count
+                    Comments: @comments.Count
+                </p>
+                <p>
+                    @thread.Content
                 </p>
             </div>
         </div>
 
-        <textarea></textarea>
-        <div class="button">Add comment</div>
+        <partial name="_AddCommentPartial" />
 
         <div class="comments">
             @foreach (var comment in comments)
             {
                 <div class="comment">
-                    <div class="top-comment">
-                        <p class="user">
-                            @comment.CreatorName
-                        </p>
-                        <p class="timestamp">
-                            @comment.CreationDate
-                        </p>
-                    </div>
-                    <div class="comment-content">
-                        @comment.Content
-                    </div>
+                    <span class="user">
+                        @comment.CreatorName
+                    </span>
+                    <span class="timestamp">
+                        @comment.CreationDate
+                    </span>
+                </div>
+                <div class="comment-content">
+                    @comment.Content
                 </div>
             }
         </div>

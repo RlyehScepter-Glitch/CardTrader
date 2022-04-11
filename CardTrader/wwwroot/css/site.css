@@ -20,7 +20,7 @@ html {
 }
 
 body {
-    margin: 0;
+    margin: 10px 60px;
     padding: 0;
     background-color: #18141d;
     color: #7900f1;
@@ -197,3 +197,82 @@ a {
     display: table-cell;
     vertical-align: top;
 }
+
+.bottom .top-comment {
+    display: flex;
+    color: #7900f1;
+    font-size: 12px;
+}
+
+.timestamp{
+    padding-right: 10px;
+}
+
+h1, h4, ol{
+    margin: 0;
+}
+
+p{
+    margin: 5px 0;
+}
+
+textarea{
+    width: 80%;
+    height: 80px;
+}
+
+.top-bar {
+    background-color: #1b0d2b;
+    padding: 0 40px;
+}
+
+.row{
+    padding: 5px 0;
+}
+
+.main {
+    background-color: #0C0019;
+    padding: 10px 15px;
+    border: 5px solid #7900f1;
+}
+
+.comments{
+    margin: 40px 0;
+}
+
+.comment {
+    margin: 10px 0;
+}
+
+.comment-ts{
+
+}
+
+.button-forum {
+    position: relative;
+    text-align: center;
+    width: 150px;
+    height: 30px;
+    font-size: 16px;
+    color: #7900f1;
+    font-family: sans-serif;
+    font-weight: 400;
+    border: 3px solid #7900f1;
+    background-color: #0C0019;
+    cursor: pointer;
+    border-radius: 7px;
+    user-select: none;
+    display: block;
+    margin: 10px 0;
+}
+
+    .button-forum:hover {
+        color: #8000ff;
+        box-shadow: 0 0px 5px 0 inset #7900f1, 0 0px 5px 0 #7900f1;
+    }
+
+    .button-forum:active {
+        background-color: #200b36;
+        box-shadow: 0 0px 20px 0 inset #7900f1;
+        text-shadow: 0 0 20px #7900f1;
+    }

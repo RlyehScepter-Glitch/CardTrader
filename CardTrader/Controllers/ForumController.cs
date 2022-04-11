@@ -25,6 +25,7 @@ namespace CardTrader.Controllers
         public IActionResult Index()
         {
             var threads = forumService.GetThreads();
+            
             ViewData["Threads"] = threads;
 
             return View();
@@ -74,6 +75,23 @@ namespace CardTrader.Controllers
         {
             var user = await userManager.GetUserAsync(this.HttpContext.User);
             return user;
+        }
+
+        [HttpPost]
+        [Route("/Forum/AddComment")]
+        public IActionResult AddComment(
+            string _threadId,
+            string _content)
+        {
+            var _userId = GetUser().Result.Id;
+            var _username = GetUser().Result.UserName;
+            
+            var comment = forumService.CreateComment(_userId, _username, _threadId, _content);
+
+            repo.Add(comment);
+            repo.SaveChanges();
+
+            return Redirect("/Forum/Index");
         }
     }
 }
