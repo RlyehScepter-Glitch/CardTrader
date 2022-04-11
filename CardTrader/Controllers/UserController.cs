@@ -1,23 +1,17 @@
 ﻿using CardTrader.Core.Contracts;
-using CardTrader.Core.Services;
-using CardTrader.Infrastructure.Data.Models;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CardTrader.Controllers
 {
     public class UserController : BaseController
     {
-        private readonly UserManager<ApplicationUser> userManager;
         private readonly IUserService userService;
         private readonly ICollectionService collectionService;
 
-        public UserController(UserManager<ApplicationUser> _userManager,
-            IUserService _userService,
+        public UserController(IUserService _userService,
             ICollectionService _collectionService)
         {
-            userManager = _userManager;
             userService = _userService;
             collectionService = _collectionService;
         }
