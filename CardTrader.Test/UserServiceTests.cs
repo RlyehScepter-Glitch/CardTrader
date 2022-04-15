@@ -55,6 +55,16 @@ namespace CardTrader.Test
             Assert.That(users.Count, Is.EqualTo(2));
         }
         
+        [Test]
+        public void CardOwnerNameMethodReturnsTheCorrectName()
+        {
+            var userService = serviceProvider.GetService<IUserService>();
+
+            string username = userService.CardOwnerName("testCollectionId");
+
+            Assert.That(username, Is.EqualTo("Pesho"));
+        }
+
         [TearDown]
         public void TearDown()
         {
@@ -66,7 +76,8 @@ namespace CardTrader.Test
             var user1 = new ApplicationUser()
             {
                 Id = "testId1",
-                UserName = "Pesho"
+                UserName = "Pesho",
+                BinderId = "testCollectionId"
             };
 
             var user2 = new ApplicationUser()
@@ -75,8 +86,15 @@ namespace CardTrader.Test
                 UserName = "Gosho"
             };
 
+            var binder = new Binder()
+            {
+                Id = "testCollectionId",
+                UserId = "testId1",
+            };
+
             repo.Add(user1);
             repo.Add(user2);
+            repo.Add(binder);
             repo.SaveChanges();
         }
     }

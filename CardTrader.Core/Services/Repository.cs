@@ -17,6 +17,10 @@ namespace CardTrader.Core.Services
         {
             DbSet<T>().Add(entity);
         }
+        public void Delete<T>(T entity) where T : class
+        {
+            DbSet<T>().Remove(entity);
+        }
         public IQueryable<T> All<T>() where T : class
         {
             return DbSet<T>().AsQueryable();

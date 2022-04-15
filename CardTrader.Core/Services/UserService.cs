@@ -38,5 +38,17 @@ namespace CardTrader.Core.Services
 
             return users;
         }
+        public string CardOwnerName(string collectionId)
+        {
+            var cardOwner = context
+                .Users
+                .Where(u => u.BinderId == collectionId ||
+                            u.WantedListId == collectionId)
+                .FirstOrDefault();
+
+            var cardOwnerName = cardOwner.UserName;
+
+            return cardOwnerName;
+        }
     }
 }

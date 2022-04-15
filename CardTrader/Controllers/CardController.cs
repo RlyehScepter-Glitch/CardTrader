@@ -2,6 +2,7 @@
 using CardTrader.Core.DataTransferObjects;
 using CardTrader.Infrastructure.Data;
 using CardTrader.Infrastructure.Data.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -78,8 +79,26 @@ namespace CardTrader.Controllers
             repo.Add(card);
             repo.SaveChanges();
 
-            return Redirect("/Collection/Binder");
+            if (collectionName == "Binder")
+            {
+                return Redirect("/Collection/Binder");
+            }
+            else
+            {
+                return Redirect("/Collection/Wanted");
+            }
         }
 
+        [HttpPost]
+        [Route("/Card/Delete")]
+        public IActionResult Delete(string cardId)
+        {
+            var card = cardService.GetCardById(cardId);
+            
+            repo.Delete(card);
+            repo.SaveChanges();
+
+            return Redirect("/Collection/Binder");
+        }
     }
 }

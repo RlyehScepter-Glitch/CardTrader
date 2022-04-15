@@ -1,4 +1,6 @@
-﻿@using CardTrader.Infrastructure.Data.Models
+﻿@using CardTrader.Core.Contracts
+@using CardTrader.Infrastructure.Data.Models
+@inject IUserService userService
 @{
     Layout = "/Views/Shared/_Layout.cshtml";
     var card = (Card)ViewBag.Card;
@@ -21,5 +23,12 @@
                 <li>Condition: @card.MinimumCondition</li>
             </ul>
         </div>
+        @if (userService.CardOwnerName(@card.CollectionId) == this.User.Identity.Name)
+        {
+            <form asp-controller="Card" asp-action="Delete">
+                <input type="hidden" name="cardId" value="@card.Id">
+                <input type="submit" class="button-form" value="Delete">
+            </form>
+        }
     </div>
 </div>
