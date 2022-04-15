@@ -16,5 +16,7 @@ namespace CardTrader.Core.Contracts
             string _MinimumCondition,
             string _ImageUrl,
             string _CollectionId);
+
+        public Card GetCardById(string cardId);
     }
 }

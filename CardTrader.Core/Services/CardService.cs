@@ -1,5 +1,6 @@
 ﻿using CardTrader.Core.Contracts;
 using CardTrader.Core.DataTransferObjects;
+using CardTrader.Infrastructure.Data;
 using CardTrader.Infrastructure.Data.Models;
 using CardTrader.Infrastructure.Data.Models.Enumerators;
 using System.Net;
@@ -8,6 +9,13 @@ namespace CardTrader.Core.Services
 {
     public class CardService : ICardService
     {
+        private readonly ApplicationDbContext context;
+
+        public CardService(ApplicationDbContext _context)
+        {
+            context = _context;
+        }
+
         public CardDTO CardInfo(string cardName)
         {
             string FormatedCardName = cardName.Trim().Replace(" ", "%20");
@@ -45,6 +53,16 @@ namespace CardTrader.Core.Services
                 ImageUrl = _ImageUrl,
                 CollectionId = _CollectionId
             };
+
+            return card;
+        }
+
+        public Card GetCardById(string cardId)
+        {
+            var card = context
+                .Cards
+                .Where(c => c.Id == cardId)
+                .FirstOrDefault();
 
             return card;
         }

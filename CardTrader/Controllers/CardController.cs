@@ -32,10 +32,7 @@ namespace CardTrader.Controllers
         [Route("/Card/Info")]
         public IActionResult Info(string cardId)
         {
-            var card = context
-                .Cards
-                .Where(c => c.Id == cardId)
-                .FirstOrDefault();
+            var card = cardService.GetCardById(cardId);
 
             ViewBag.Card = card;
 
