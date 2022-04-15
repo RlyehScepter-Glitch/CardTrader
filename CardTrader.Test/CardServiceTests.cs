@@ -239,9 +239,19 @@ namespace CardTrader.Test
         {
             var cardService = serviceProvider.GetService<ICardService>();
 
-            var card = cardService.GetCardById("testId");
+            var card = cardService.GetCardById("testId1");
 
-            Assert.That(card.Id, Is.EqualTo("testId"));
+            Assert.That(card.Id, Is.EqualTo("testId1"));
+        }
+
+        [Test]
+        public void GetCardsByCollectionIdReturnsCorrectNumberOfCards()
+        {
+            var cardService = serviceProvider.GetService<ICardService>();
+
+            var cards = cardService.GetCardsByCollectionId("testCollectionId1");
+
+            Assert.That(cards.Count, Is.EqualTo(2));
         }
 
         [TearDown]
@@ -268,7 +278,7 @@ namespace CardTrader.Test
 
             var testCard1 = new Card()
             {
-                Id = "testId",
+                Id = "testId1",
                 Name = "testName1",
                 Expansion = "testExpansion1",
                 Rarity = "testRarity1",
@@ -279,9 +289,23 @@ namespace CardTrader.Test
                 CollectionId = "testCollectionId1"
             };
 
+            var testCard2 = new Card()
+            {
+                Id = "testId2",
+                Name = "testName2",
+                Expansion = "testExpansion2",
+                Rarity = "testRarity2",
+                Language = "testLanguage2",
+                FirstEdition = true,
+                MinimumCondition = Enum.Parse<Condition>("Pristine"),
+                ImageUrl = "testImgUrl2",
+                CollectionId = "testCollectionId1"
+            };
+
             repo.Add(user);
             repo.Add(binder);
             repo.Add(testCard1);
+            repo.Add(testCard2);
             repo.SaveChanges();
         }
     }

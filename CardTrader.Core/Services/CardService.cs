@@ -66,5 +66,15 @@ namespace CardTrader.Core.Services
 
             return card;
         }
+
+        public List<Card> GetCardsByCollectionId(string collectionId)
+        {
+            var cards = context
+                .Cards
+                .Where(c => c.CollectionId == collectionId)
+                .ToList();
+
+            return cards;
+        }
     }
 }

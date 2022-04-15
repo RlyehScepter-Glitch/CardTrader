@@ -18,5 +18,6 @@ namespace CardTrader.Core.Contracts
             string _CollectionId);
 
         public Card GetCardById(string cardId);
+        public List<Card> GetCardsByCollectionId(string collectionId);
     }
 }

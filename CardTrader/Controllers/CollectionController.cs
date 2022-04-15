@@ -12,17 +12,20 @@ namespace CardTrader.Controllers
         private readonly ICollectionService collectionService;
         private readonly UserManager<ApplicationUser> userManager;
         private readonly ApplicationDbContext context;
+        private readonly ICardService cardService;
 
         public CollectionController(
             ICollectionService _collectionService,
             IRepository _repo,
             UserManager<ApplicationUser> _userManager,
-            ApplicationDbContext _context)
+            ApplicationDbContext _context,
+            ICardService _cardService)
         {
             collectionService = _collectionService;
             repo = _repo;
             userManager = _userManager;
             context = _context;
+            cardService = _cardService;
         }
         
         public IActionResult Binder()
@@ -32,10 +35,7 @@ namespace CardTrader.Controllers
 
             var user = GetUser();
             var binderId = user.Result.BinderId;
-            var cards = context
-                .Cards
-                .Where(c => c.CollectionId == binderId)
-                .ToList();
+            var cards = cardService.GetCardsByCollectionId(binderId);
 
             ViewData["Cards"] = cards;
 
@@ -49,10 +49,7 @@ namespace CardTrader.Controllers
             var user = GetUser();
             var wantedListId = user.Result.WantedListId;
             
-            var cards = context
-                .Cards
-                .Where(c => c.CollectionId == wantedListId)
-                .ToList();
+            var cards = cardService.GetCardsByCollectionId(wantedListId);
 
             ViewData["Cards"] = cards;
 
