@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using CardTrader.Core.Contracts;
 using CardTrader.Core.DataTransferObjects;
 using CardTrader.Core.Services;
+using CardTrader.Infrastructure.Data.Models;
 using CardTrader.Infrastructure.Data.Models.Enumerators;
 using Microsoft.Extensions.DependencyInjection;
 using NUnit.Framework;
@@ -22,15 +23,20 @@ namespace CardTrader.Test
 
             serviceProvider = serviceCollection
                 .AddSingleton(sp => dbContext.CreateContext())
+                .AddSingleton<IRepository, Repository>()
                 .AddSingleton<ICardService, CardService>()
                 .BuildServiceProvider();
+
+            var repo = serviceProvider.GetService<IRepository>();
+
+            SeedDb(repo);
         }
 
         [Test]
         public void CardInfoReturnsCardDTOWithCorrectName()
         {
             var cardService = serviceProvider.GetService<ICardService>();
-            
+
             string cardName = "Endymion, the Mighty Master of Magic";
 
             CardDTO card = cardService.CardInfo(cardName);
@@ -228,10 +234,55 @@ namespace CardTrader.Test
             Assert.That(card.CollectionId, Is.EqualTo(_CollectionId));
         }
 
+        [Test]
+        public void GetCardByIdReturnsCorrectCard()
+        {
+            var cardService = serviceProvider.GetService<ICardService>();
+
+            var card = cardService.GetCardById("testId");
+
+            Assert.That(card.Id, Is.EqualTo("testId"));
+        }
+
         [TearDown]
         public void TearDown()
         {
             dbContext.Dispose();
+        }
+
+        private void SeedDb(IRepository repo)
+        {
+            var cardService = serviceProvider.GetService<ICardService>();
+
+            var user = new ApplicationUser()
+            {
+                Id = "testUserId1",
+                UserName = "Pesho"
+            };
+
+            var binder = new Binder()
+            {
+                Id = "testCollectionId1",
+                UserId = "testUserId1",
+            };
+
+            var testCard1 = new Card()
+            {
+                Id = "testId",
+                Name = "testName1",
+                Expansion = "testExpansion1",
+                Rarity = "testRarity1",
+                Language = "testLanguage1",
+                FirstEdition = true,
+                MinimumCondition = Enum.Parse<Condition>("Pristine"),
+                ImageUrl = "testImgUrl1",
+                CollectionId = "testCollectionId1"
+            };
+
+            repo.Add(user);
+            repo.Add(binder);
+            repo.Add(testCard1);
+            repo.SaveChanges();
         }
     }
 }
