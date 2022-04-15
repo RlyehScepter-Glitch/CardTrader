@@ -12,6 +12,31 @@ namespace CardTrader.Core.Services
             context = _context;
         }
 
+        public ForumThread CreateThread(string _userId, string _title, string _content)
+        {
+            ForumThread thread = new ForumThread
+            {
+                CreatorId = _userId, 
+                Title = _title, 
+                Content = _content
+            };
+
+            return thread;
+        }
+
+        public ForumComment CreateComment(string _userId, string _username, string _threadId, string _content)
+        {
+            ForumComment comment = new ForumComment
+            {
+                CreatorId = _userId,
+                CreatorName = _username,
+                ForumThreadId = _threadId,
+                Content = _content
+            };
+
+            return comment;
+        }
+
         public List<ForumThread> GetThreads()
         {
             var threads = context
@@ -40,31 +65,6 @@ namespace CardTrader.Core.Services
                 .ToList();
 
             return comments;
-        }
-
-        public ForumThread CreateThread(string _userId, string _title, string _content)
-        {
-            ForumThread thread = new ForumThread
-            {
-                CreatorId = _userId, 
-                Title = _title, 
-                Content = _content
-            };
-
-            return thread;
-        }
-
-        public ForumComment CreateComment(string _userId, string _username, string _threadId, string _content)
-        {
-            ForumComment comment = new ForumComment
-            {
-                CreatorId = _userId,
-                CreatorName = _username,
-                ForumThreadId = _threadId,
-                Content = _content
-            };
-
-            return comment;
         }
     }
 }
