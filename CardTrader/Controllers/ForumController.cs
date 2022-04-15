@@ -48,9 +48,7 @@ namespace CardTrader.Controllers
 
         public IActionResult CreateThread()
         {
-            var userId = GetUser()
-                .Result
-                .Id;
+            var userId = GetUser().Result.Id;
 
             ViewData["UserId"] = userId;
 
