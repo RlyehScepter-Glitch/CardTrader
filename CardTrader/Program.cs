@@ -1,6 +1,5 @@
 using CardTrader.Infrastructure.Data;
 using CardTrader.Infrastructure.Data.Models;
-using Microsoft.AspNetCore.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
 

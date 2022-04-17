@@ -1,13 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using CardTrader.Core.Contracts;
+﻿using CardTrader.Core.Contracts;
 using CardTrader.Core.Services;
 using CardTrader.Core.ViewModels;
 using CardTrader.Infrastructure.Data.Models;
 using Microsoft.Extensions.DependencyInjection;
 using NUnit.Framework;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace CardTrader.Test
 {
